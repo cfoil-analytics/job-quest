@@ -36,6 +36,9 @@ function defaultData() {
       outreachEarly: false, // unlock outreach before Project 1 is done
       jobsEnabled: false,   // show the jobs applied tracker in People
     },
+    badges: {},    // badgeId -> date earned
+    lastBackup: null,   // date of the last backup export
+    welcomeDone: false, // dismissed the first-run card
     jobs: [],      // { id, company, role, link, date, status, contact, followUp, notes, interview, offer }
     checkins: {},  // weekKey -> { date, summary, ratings, win, blocker, goals, goalsDone }
     // portfolio projects: target date, done, work sessions, checked-off milestones
@@ -303,9 +306,28 @@ function renderToday() {
       ${t.bonus ? `<button class="del" data-del="${t.id}" aria-label="Delete task">×</button>` : ''}
     </div>`).join('');
 
+  const welcomeHtml = data.welcomeDone ? '' : `
+    <div class="card welcome">
+      <b>Welcome to Job Quest 👋</b>
+      <ul class="lesson-points">
+        <li>Finish your main tasks each day to keep your 🔥 streak.</li>
+        <li>Tapping a task takes you to the right place (lesson, timer, or People).</li>
+        <li>Sundays: a 3-minute check-in sets next week's goals.</li>
+        <li>Your data lives only on this phone, so back it up from Me.</li>
+      </ul>
+      <button class="btn small" id="welcomeOk">Got it</button>
+    </div>`;
+  const backupHtml = backupDue() ? `
+    <div class="card nudge">
+      <span>💾 ${data.lastBackup ? `Last backup ${fmtDate(data.lastBackup)}` : 'No backup yet'}. Save one to OneDrive?</span>
+      <button class="btn small purple" id="backupNow">Back up</button>
+    </div>` : '';
+
   view.innerHTML = `
+    ${welcomeHtml}
     <h1>${day.complete ? 'Crushed it 💪' : "Today's quest"}</h1>
     <p class="sub">${dateText}</p>
+    ${backupHtml}
 
     <div class="card">
       <div class="day-progress"><span>${doneCount} / ${main.length} done</span><span>${day.complete ? '🔥 streak saved' : `+${DAY_BONUS} when finished`}</span></div>
@@ -327,6 +349,10 @@ function renderToday() {
     <div class="card countdown" data-go-projects role="button">${countdown}</div>
   `;
   view.querySelectorAll('[data-go-people]').forEach(el => el.addEventListener('click', () => goTab('people')));
+  const welcomeOk = document.getElementById('welcomeOk');
+  if (welcomeOk) welcomeOk.addEventListener('click', () => { data.welcomeDone = true; save(); render(); });
+  const backupNow = document.getElementById('backupNow');
+  if (backupNow) backupNow.addEventListener('click', exportBackup);
   view.querySelectorAll('[data-go-projects]').forEach(el => el.addEventListener('click', () => goTab('projects')));
   view.querySelectorAll('[data-goal]').forEach(el => el.addEventListener('click', () => toggleGoal(g.wk, Number(el.dataset.goal))));
 
@@ -394,6 +420,8 @@ function renderMe() {
       <div class="card stat"><div class="num" style="color:var(--green)">${data.log.length}</div><div class="lbl">Tasks finished</div></div>
     </div>
 
+    ${renderBadges()}
+
     <h2>Weekly check-in</h2>
     <div class="card">
       ${thisWeek
@@ -459,10 +487,15 @@ async function exportBackup() {
   const file = new File([blob], name, { type: 'application/json' });
 
   // On iPhone this opens the share sheet so you can "Save to Files" > OneDrive
+  const done = () => {
+    data.lastBackup = dateKey();
+    save();
+    render();
+  };
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
       await navigator.share({ files: [file], title: name });
-      return;
+      return done();
     } catch (e) {
       if (e.name === 'AbortError') return;
     }
@@ -472,6 +505,14 @@ async function exportBackup() {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  done();
+}
+
+// Nudge a backup a week after starting, then every 2 weeks
+function backupDue() {
+  const today = dateKey();
+  if (!data.lastBackup) return daysBetween(data.createdAt, today) >= 7;
+  return daysBetween(data.lastBackup, today) >= 14;
 }
 
 function importBackup(e) {
@@ -2287,6 +2328,80 @@ async function exportSpreadsheet() {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
+// ---------- badges ----------
+// Each badge checks the saved data. Once earned it stays, even if something gets undone.
+const BADGE_POINTS = 10;
+
+function bestCheckinRun() {
+  const weeks = Object.keys(data.checkins).sort();
+  let best = 0, run = 0;
+  weeks.forEach((wk, i) => {
+    run = i && addDays(weeks[i - 1], 7) === wk ? run + 1 : 1;
+    best = Math.max(best, run);
+  });
+  return best;
+}
+
+const BADGES = [
+  { id: 'day1', emoji: '🌱', name: 'First step', hint: 'Finish a full day', test: () => Object.values(data.days).some(d => d.complete) },
+  { id: 'streak3', emoji: '🔥', name: 'Heating up', hint: '3-day streak', test: () => data.streak.best >= 3 },
+  { id: 'streak7', emoji: '⚡', name: 'One full week', hint: '7-day streak', test: () => data.streak.best >= 7 },
+  { id: 'streak30', emoji: '💎', name: 'Unbreakable', hint: '30-day streak', test: () => data.streak.best >= 30 },
+  { id: 'lesson1', emoji: '📖', name: 'Student again', hint: 'Finish your first CSCS lesson', test: () => Object.keys(data.study.completed).length >= 1 },
+  { id: 'lesson5', emoji: '🧠', name: 'Five down', hint: 'Finish 5 lessons', test: () => Object.keys(data.study.completed).length >= 5 },
+  { id: 'lessonsAll', emoji: '🎓', name: 'Caught up', hint: 'Finish every lesson in the app', test: () => !!LESSONS && LESSONS.length > 0 && LESSONS.every(l => data.study.completed[l.id]) },
+  { id: 'perfect', emoji: '💯', name: 'Perfect quiz', hint: 'Get 100% on a quiz', test: () => data.study.sessions.some(s => s.total && s.score === s.total) },
+  { id: 'weekly', emoji: '🗓️', name: 'Big review', hint: 'Take a weekly review quiz', test: () => data.study.sessions.some(s => s.kind === 'weekly') },
+  { id: 'checkin1', emoji: '🪞', name: 'Looking back', hint: 'Do a weekly check-in', test: () => Object.keys(data.checkins).length >= 1 },
+  { id: 'checkin4', emoji: '📈', name: 'Consistent', hint: '4 weekly check-ins in a row', test: () => bestCheckinRun() >= 4 },
+  { id: 'hour1', emoji: '⏱️', name: 'Clocked in', hint: '1 hour of project time', test: () => PROJECTS.reduce((a, p) => a + totalMinutes(p.id), 0) >= 60 },
+  { id: 'hour10', emoji: '🛠️', name: 'Builder', hint: '10 hours of project time', test: () => PROJECTS.reduce((a, p) => a + totalMinutes(p.id), 0) >= 600 },
+  { id: 'ship1', emoji: '🚀', name: 'Shipped it', hint: 'Finish Project 1', test: () => data.projects.p1.done },
+  { id: 'shipAll', emoji: '🏗️', name: 'Portfolio ready', hint: 'Finish all 3 projects', test: () => PROJECTS.every(p => data.projects[p.id].done) },
+  { id: 'recAsk', emoji: '✉️', name: 'Asked', hint: 'Ask someone for a letter of rec', test: () => data.recs.some(r => r.steps.ask) },
+  { id: 'rec3', emoji: '📜', name: 'Three letters', hint: `Get all ${REC_GOAL} letters of rec`, test: () => recsReceived() >= REC_GOAL },
+  { id: 'out1', emoji: '👋', name: 'Shot taken', hint: 'Reach out to your first professional', test: () => data.outreach.length >= 1 },
+  { id: 'out10', emoji: '📣', name: 'Networker', hint: 'Reach out to 10 people', test: () => data.outreach.length >= 10 },
+  { id: 'reply1', emoji: '📬', name: 'They wrote back', hint: 'Get a reply', test: () => data.outreach.some(o => o.replied) },
+  { id: 'job1', emoji: '📝', name: 'In the pool', hint: 'Log a job application', test: () => data.jobs.length >= 1 },
+  { id: 'interview', emoji: '🎤', name: 'Interview', hint: 'Land an interview', test: () => data.jobs.some(j => j.interview) },
+  { id: 'offer', emoji: '🏆', name: 'Offer', hint: 'Get an offer', test: () => data.jobs.some(j => j.offer) },
+  { id: 'level5', emoji: '⭐', name: 'Level 5', hint: 'Reach level 5', test: () => levelInfo(data.points).level >= 5 },
+];
+
+// Runs on every render: award anything newly earned
+function checkBadges() {
+  const fresh = BADGES.filter(b => !data.badges[b.id] && b.test());
+  if (!fresh.length) return;
+  fresh.forEach(b => {
+    data.badges[b.id] = dateKey();
+    data.log.push({ date: dateKey(), id: `badge-${b.id}`, type: 'Badge', title: `Badge: ${b.name}`, points: BADGE_POINTS });
+  });
+  addPoints(BADGE_POINTS * fresh.length);
+  save();
+  setTimeout(() => {
+    celebrate();
+    toast(fresh.length === 1 ? `${fresh[0].emoji} Badge: ${fresh[0].name}! +${BADGE_POINTS}` : `🏅 ${fresh.length} new badges! +${BADGE_POINTS * fresh.length}`);
+  }, 900);
+}
+
+function renderBadges() {
+  const earned = BADGES.filter(b => data.badges[b.id]).length;
+  return `
+    <h2>Badges · ${earned}/${BADGES.length}</h2>
+    <div class="badge-grid">
+      ${BADGES.map(b => {
+        const got = data.badges[b.id];
+        return `
+          <div class="badge-tile ${got ? 'got' : ''}" title="${escapeHtml(b.hint)}">
+            <div class="badge-emoji">${got ? b.emoji : '🔒'}</div>
+            <div class="badge-name">${escapeHtml(b.name)}</div>
+            <div class="badge-hint">${got ? fmtDate(got) : escapeHtml(b.hint)}</div>
+          </div>`;
+      }).join('')}
+    </div>`;
+}
+
 // ---------- toast + confetti ----------
 let toastTimer;
 function toast(msg) {
@@ -2333,6 +2448,7 @@ function celebrate() {
 function render() {
   checkTimer();
   refreshStreak();
+  checkBadges();
   renderHeader();
   document.querySelectorAll('.tabbar button').forEach(b => b.classList.toggle('active', b.dataset.tab === currentTab));
   if (currentTab === 'today') renderToday();

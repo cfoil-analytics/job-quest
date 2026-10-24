@@ -2,7 +2,7 @@
 // It shows the saved copy right away, then grabs a fresh copy in the background,
 // so updates show up the next time you open the app.
 
-const CACHE = 'jobquest-v6';
+const CACHE = 'jobquest-v7';
 const FILES = [
   './',
   './index.html',
