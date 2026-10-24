@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Job Quest</title>
+  <meta name="theme-color" content="#58cc02">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Job Quest">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="pill streak" id="streakPill">🔥 0</div>
+    <div class="level-wrap">
+      <div class="level-label" id="levelLabel">Level 1</div>
+      <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+    </div>
+    <div class="pill points" id="pointsPill">⭐ 0</div>
+  </header>
+
+  <main id="view"></main>
+
+  <nav class="tabbar">
+    <button data-tab="today" class="active"><span>🏠</span>Today</button>
+    <button data-tab="study"><span>📚</span>Study</button>
+    <button data-tab="people"><span>🤝</span>People</button>
+    <button data-tab="projects"><span>⏱️</span>Projects</button>
+    <button data-tab="me"><span>🏆</span>Me</button>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+  <canvas id="confetti"></canvas>
+
+  <script src="app.js"></script>
+</body>
+</html>

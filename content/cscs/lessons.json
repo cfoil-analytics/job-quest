@@ -1,0 +1,730 @@
+{
+  "version": 1,
+  "note": "Original plain-language summaries written for this app. Not copied from any textbook.",
+  "lessons": [
+    {
+      "id": "s01-muscle",
+      "domain": "Scientific",
+      "chapter": "Ch 1 · Body systems",
+      "title": "How a muscle actually contracts",
+      "sections": [
+        {
+          "heading": "The layers",
+          "points": [
+            "Whole muscle → bundles called fascicles → single muscle fibers (cells) → myofibrils → sarcomeres.",
+            "The sarcomere is the smallest unit that contracts. Think of it as one link in a long chain.",
+            "Inside it are two protein filaments: thick ones (myosin) and thin ones (actin)."
+          ]
+        },
+        {
+          "heading": "Sliding filament theory, step by step",
+          "points": [
+            "A nerve signal reaches the fiber and causes calcium to be released from the sarcoplasmic reticulum (the fiber's calcium storage tank).",
+            "Calcium binds to troponin, which moves tropomyosin out of the way and uncovers binding spots on actin.",
+            "Myosin heads grab actin (a cross-bridge) and pull. Breaking down ATP powers that pull (the power stroke). Then a fresh ATP has to bind so the myosin head can let go and reset.",
+            "Force at any moment depends on how many cross-bridges are attached at once.",
+            "Filaments slide past each other. They don't get shorter themselves; the sarcomere does."
+          ]
+        },
+        {
+          "heading": "What changes in the sarcomere",
+          "points": [
+            "The I-band and H-zone shrink as the filaments overlap more.",
+            "The A-band (the length of myosin) stays the same.",
+            "When the signal stops, calcium is pumped back, and the muscle relaxes."
+          ]
+        }
+      ],
+      "coach": "Why it matters: fatigue in a hard set is partly the fiber struggling to handle calcium and ATP fast enough. That's one reason jump height drops late in a session.",
+      "questions": [
+        {
+          "id": "s01-q1",
+          "q": "Which protein does calcium bind to so contraction can start?",
+          "choices": ["Troponin", "Myosin", "Actin", "Titin"],
+          "answer": 0,
+          "why": "Calcium binds troponin. That shifts tropomyosin off actin's binding sites so myosin can attach."
+        },
+        {
+          "id": "s01-q2",
+          "q": "During a contraction, which part of the sarcomere stays the same length?",
+          "choices": ["H-zone", "I-band", "A-band", "The whole sarcomere"],
+          "answer": 2,
+          "why": "The A-band is the length of the thick (myosin) filaments, and filaments don't shrink. The H-zone and I-band get smaller as overlap increases."
+        },
+        {
+          "id": "s01-q3",
+          "q": "What is ATP needed for in the cross-bridge cycle?",
+          "choices": ["Releasing calcium from the nerve", "Letting the myosin head detach from actin and reset", "Making actin longer", "Blocking tropomyosin"],
+          "answer": 1,
+          "why": "ATP lets myosin release actin and re-cock for the next pull. No ATP means no release (that's why muscles lock up in rigor mortis)."
+        },
+        {
+          "id": "s01-q4",
+          "q": "Where is calcium stored inside a muscle fiber?",
+          "choices": ["Mitochondria", "Sarcoplasmic reticulum", "Myoglobin", "Motor end plate"],
+          "answer": 1,
+          "why": "The sarcoplasmic reticulum stores calcium and releases it when the fiber is stimulated."
+        },
+        {
+          "id": "s01-q5",
+          "q": "What is the smallest contractile unit of a muscle?",
+          "choices": ["Fascicle", "Myofibril", "Muscle fiber", "Sarcomere"],
+          "answer": 3,
+          "why": "Sarcomeres are the repeating units in a myofibril that actually shorten."
+        }
+      ]
+    },
+    {
+      "id": "s02-energy",
+      "domain": "Scientific",
+      "chapter": "Ch 3 · Bioenergetics",
+      "title": "The three energy systems",
+      "sections": [
+        {
+          "heading": "The big idea",
+          "points": [
+            "Muscles only run on ATP, and they only store a tiny amount. Three systems rebuild it.",
+            "All three are always on. Which one does most of the work depends mainly on intensity, and secondarily on duration."
+          ]
+        },
+        {
+          "heading": "The three systems",
+          "points": [
+            "Phosphagen (ATP-PCr): fastest, tiny capacity. Uses creatine phosphate to rebuild ATP. Runs all-out efforts.",
+            "Glycolysis: breaks down carbohydrate (glycogen or blood glucose). Faster than aerobic, bigger capacity than phosphagen.",
+            "Oxidative (aerobic): slowest but huge capacity. Uses oxygen to burn carbs and fat. Also refills the phosphagen system during rest."
+          ]
+        },
+        {
+          "heading": "Duration and intensity (know this table)",
+          "points": [
+            "0-6 s, extremely high intensity: phosphagen (1RM, max jump, short sprint).",
+            "6-30 s, very high: phosphagen + fast glycolysis.",
+            "30 s to 2 min, high: fast glycolysis (a hard 400 m).",
+            "2-3 min, moderate: fast glycolysis + oxidative.",
+            ">3 min, low: oxidative."
+          ]
+        },
+        {
+          "heading": "Work to rest ratios",
+          "points": [
+            "Training a system means matching the work to it and giving enough rest to refill it.",
+            "Phosphagen work: about 1:12 to 1:20 (5 s sprint, 60-100 s rest).",
+            "Fast glycolysis: about 1:3 to 1:5.",
+            "Fast glycolysis + oxidative: about 1:3 to 1:4.",
+            "Oxidative: about 1:1 to 1:3.",
+            "Why so much rest for phosphagen work: fully refilling creatine phosphate can take up to about 8 minutes."
+          ]
+        }
+      ],
+      "coach": "Why it matters: if rest is too short between sprints, you end up training glycolysis instead of top speed. Same with jump testing: rest enough so each jump is a true max.",
+      "questions": [
+        {
+          "id": "s02-q1",
+          "q": "Which energy system mainly fuels a 1RM back squat?",
+          "choices": ["Oxidative", "Fast glycolysis", "Phosphagen", "Fat oxidation"],
+          "answer": 2,
+          "why": "A 1RM takes a few seconds at max intensity, which is the phosphagen system's job."
+        },
+        {
+          "id": "s02-q2",
+          "q": "An athlete runs a hard 400 m in about 55 seconds. Which system contributes most?",
+          "choices": ["Phosphagen", "Glycolysis", "Oxidative", "All three exactly equally"],
+          "answer": 1,
+          "why": "Efforts from about 30 seconds to 2 minutes lean mostly on glycolysis."
+        },
+        {
+          "id": "s02-q3",
+          "q": "What work to rest ratio best targets the phosphagen system?",
+          "choices": ["1:1", "1:3", "1:5", "1:12 to 1:20"],
+          "answer": 3,
+          "why": "Phosphocreatine takes a few minutes to fully refill, so short max efforts need long rest."
+        },
+        {
+          "id": "s02-q4",
+          "q": "Which statement about energy systems is true?",
+          "choices": ["Only one system works at a time", "All systems are always active; intensity mostly decides which dominates, then duration", "The oxidative system shuts off during sprints", "Glycolysis requires oxygen"],
+          "answer": 1,
+          "why": "They overlap. Intensity is the main factor in which one supplies most of the ATP, with duration second."
+        },
+        {
+          "id": "s02-q5",
+          "q": "Which system has the largest capacity but the slowest rate of ATP production?",
+          "choices": ["Phosphagen", "Fast glycolysis", "Oxidative", "Creatine kinase"],
+          "answer": 2,
+          "why": "Aerobic metabolism can go for hours but can't make ATP fast enough for max efforts."
+        }
+      ]
+    },
+    {
+      "id": "a01-loads",
+      "domain": "Applied",
+      "chapter": "Ch 17 · Resistance training program design",
+      "title": "Sets, reps, load, and rest by goal",
+      "sections": [
+        {
+          "heading": "Load and reps go together",
+          "points": [
+            "Load is usually written as a % of 1RM (the most you can lift once). Heavier load = fewer reps possible.",
+            "Rough guide: about 85% 1RM ≈ 6 reps, 75% ≈ 10 reps, 67% ≈ 12 reps."
+          ]
+        },
+        {
+          "heading": "The goal table (memorize this one)",
+          "points": [
+            "Strength: ≥85% 1RM, ≤6 reps, 2-6 sets, 2-5 min rest.",
+            "Power (single-effort, like a jump or throw): 80-90% 1RM, 1-2 reps, 3-5 sets, 2-5 min rest.",
+            "Power (multiple-effort, like a basketball game): 75-85% 1RM, 3-5 reps, 3-5 sets, 2-5 min rest.",
+            "Hypertrophy (muscle size): 67-85% 1RM, 6-12 reps, 3-6 sets, 30 s to 1.5 min rest.",
+            "Muscular endurance: ≤67% 1RM, ≥12 reps, 2-3 sets, ≤30 s rest."
+          ]
+        },
+        {
+          "heading": "Assigning it",
+          "points": [
+            "These numbers apply to core lifts (big multi-joint lifts like squats and cleans). In a strength program, assistance lifts should be no heavier than an 8RM.",
+            "Power loads look 'too light' for the reps on purpose: lighter loads let every rep stay fast, which is where peak power happens.",
+            "The 2-for-2 rule: if an athlete can do 2+ extra reps on the last set for two workouts in a row, increase the load."
+          ]
+        }
+      ],
+      "coach": "Why it matters: when a coach asks 'why 3x3 at 85%?' you should be able to answer with this table.",
+      "questions": [
+        {
+          "id": "a01-q1",
+          "q": "An athlete's goal is maximal strength. Which prescription fits best?",
+          "choices": ["3 sets of 12 at 65%, 30 s rest", "4 sets of 4 at 88%, 3 min rest", "3 sets of 8 at 75%, 60 s rest", "2 sets of 20 at 50%, 20 s rest"],
+          "answer": 1,
+          "why": "Strength = ≥85% 1RM, ≤6 reps, 2-5 min rest."
+        },
+        {
+          "id": "a01-q2",
+          "q": "What rest period fits a hypertrophy program?",
+          "choices": ["≤30 s", "30 s to 1.5 min", "2-5 min", "5-8 min"],
+          "answer": 1,
+          "why": "Hypertrophy uses short to moderate rest, about 30 seconds to 1.5 minutes."
+        },
+        {
+          "id": "a01-q3",
+          "q": "Single-effort power events (like shot put) are best trained with:",
+          "choices": ["1-2 reps at 80-90% 1RM", "10-12 reps at 70% 1RM", "15+ reps at 60% 1RM", "6-8 reps at 75% 1RM"],
+          "answer": 0,
+          "why": "Single-effort power uses low reps at 80-90% with full rest so every rep is fast and crisp."
+        },
+        {
+          "id": "a01-q4",
+          "q": "What does the 2-for-2 rule tell you?",
+          "choices": ["Do 2 sets for 2 weeks", "Rest 2 minutes after 2 sets", "Increase load when the athlete gets 2+ extra reps on the last set two workouts in a row", "Train 2 body parts twice a week"],
+          "answer": 2,
+          "why": "It's a simple trigger for progressing load."
+        },
+        {
+          "id": "a01-q5",
+          "q": "Muscular endurance training typically uses:",
+          "choices": ["≥85% 1RM, ≤6 reps", "67-85% 1RM, 6-12 reps", "≤67% 1RM, ≥12 reps, ≤30 s rest", "90% 1RM, 1 rep, 5 min rest"],
+          "answer": 2,
+          "why": "Lighter loads, high reps, short rest."
+        }
+      ]
+    },
+    {
+      "id": "s03-motor-units",
+      "domain": "Scientific",
+      "chapter": "Ch 1 & 5 · Neuromuscular",
+      "title": "Motor units and fiber types",
+      "sections": [
+        {
+          "heading": "What a motor unit is",
+          "points": [
+            "A motor unit = one motor neuron + all the muscle fibers it connects to.",
+            "When the neuron fires, all of its fibers contract fully (the all-or-none principle).",
+            "Muscles that need fine control (eye, fingers) have small motor units. Big force muscles (quads) have some huge ones."
+          ]
+        },
+        {
+          "heading": "Fiber types",
+          "points": [
+            "Type I (slow-twitch): fatigue resistant, lots of mitochondria and capillaries, low force.",
+            "Type IIa (fast-twitch): middle ground. Fast, with more aerobic capacity and capillaries than IIx, but fatigue resistance is still only intermediate to low.",
+            "Type IIx (fast-twitch, glycolytic): highest force and speed, tires fastest."
+          ]
+        },
+        {
+          "heading": "How we make more force",
+          "points": [
+            "Recruitment: turn on more motor units. They come on small to large (the size principle). Type I first, Type II as force needs go up.",
+            "Rate coding: fire the motor units that are already on faster.",
+            "Takeaway: to train the big fast-twitch units, you need heavy loads or fast, explosive efforts."
+          ]
+        }
+      ],
+      "coach": "Why it matters: light, slow sets never reach the high-threshold units that drive jump height and sprint speed.",
+      "questions": [
+        {
+          "id": "s03-q1",
+          "q": "A motor unit is made up of:",
+          "choices": ["One muscle fiber and its blood supply", "One motor neuron and all the fibers it innervates", "All the fibers in one fascicle", "A sarcomere and its myofibril"],
+          "answer": 1,
+          "why": "That's the definition of a motor unit."
+        },
+        {
+          "id": "s03-q2",
+          "q": "According to the size principle, which motor units are recruited first?",
+          "choices": ["The largest, fast-twitch units", "Small, low-threshold units", "Random units", "Whichever are least fatigued"],
+          "answer": 1,
+          "why": "Recruitment goes from small (Type I) to large (Type II) as force demands rise."
+        },
+        {
+          "id": "s03-q3",
+          "q": "Which fiber type produces the most force but fatigues fastest?",
+          "choices": ["Type I", "Type IIa", "Type IIx", "They are equal"],
+          "answer": 2,
+          "why": "Type IIx fibers are the fastest and strongest but have the lowest oxidative capacity."
+        },
+        {
+          "id": "s03-q4",
+          "q": "Increasing the firing frequency of already active motor units is called:",
+          "choices": ["Recruitment", "Rate coding", "Hypertrophy", "Reciprocal inhibition"],
+          "answer": 1,
+          "why": "Rate coding = faster firing. Recruitment = adding more units."
+        },
+        {
+          "id": "s03-q5",
+          "q": "Which fiber type has the most mitochondria and capillaries?",
+          "choices": ["Type I", "Type IIa", "Type IIx", "None, they're all the same"],
+          "answer": 0,
+          "why": "Type I fibers are built for aerobic, long-duration work."
+        }
+      ]
+    },
+    {
+      "id": "s04-levers",
+      "domain": "Scientific",
+      "chapter": "Ch 2 · Biomechanics",
+      "title": "Levers, torque, and mechanical advantage",
+      "sections": [
+        {
+          "heading": "Torque",
+          "points": [
+            "Torque = force × moment arm. The moment arm is the perpendicular distance from the joint to the line of the force.",
+            "That's why a dumbbell feels heaviest when your arm is straight out to the side: the moment arm is longest."
+          ]
+        },
+        {
+          "heading": "Three lever classes",
+          "points": [
+            "First class: the fulcrum (joint) is between the muscle force and the resistance. Example: triceps extending the elbow against resistance (the triceps pulls on one side of the elbow, the load is on the other).",
+            "Second class: the resistance is between the fulcrum and the muscle force. Example: calf raise, rising onto the balls of your feet.",
+            "Third class: the muscle force is between the fulcrum and the resistance. Example: biceps curl. Most body joints work like this."
+          ]
+        },
+        {
+          "heading": "Mechanical advantage",
+          "points": [
+            "Mechanical advantage = moment arm of the muscle force ÷ moment arm of the resistance.",
+            "Above 1: the muscle has an easier time. Below 1: the muscle has to produce more force than the resistance.",
+            "Most muscles work at a mechanical advantage below 1. That's why forces inside muscles and tendons are much bigger than the force on the bar or the ground.",
+            "Naming the lever class can be arbitrary in real movement. Understanding mechanical advantage matters more."
+          ]
+        }
+      ],
+      "coach": "Why it matters: small technique changes (bar position, torso angle) change moment arms, which changes which joints do the work in a squat.",
+      "questions": [
+        {
+          "id": "s04-q1",
+          "q": "Torque equals:",
+          "choices": ["Mass × acceleration", "Force × moment arm", "Work ÷ time", "Force ÷ area"],
+          "answer": 1,
+          "why": "Torque is the rotational effect of a force: force times its perpendicular distance from the axis."
+        },
+        {
+          "id": "s04-q2",
+          "q": "A biceps curl at the elbow is which type of lever?",
+          "choices": ["First class", "Second class", "Third class", "Not a lever"],
+          "answer": 2,
+          "why": "The biceps pulls between the elbow (fulcrum) and the weight in the hand (resistance)."
+        },
+        {
+          "id": "s04-q3",
+          "q": "Standing calf raises are the classic example of which lever?",
+          "choices": ["First class", "Second class", "Third class", "Fourth class"],
+          "answer": 1,
+          "why": "The ball of the foot is the fulcrum, body weight is in the middle, and the calf pulls at the heel."
+        },
+        {
+          "id": "s04-q4",
+          "q": "A mechanical advantage less than 1 means:",
+          "choices": ["The muscle force must be larger than the resistance", "The muscle force can be smaller than the resistance", "No movement is possible", "The joint is a second-class lever"],
+          "answer": 0,
+          "why": "With a shorter moment arm than the resistance, the muscle has to pull harder than the load."
+        },
+        {
+          "id": "s04-q5",
+          "q": "Holding a dumbbell in a lateral raise, when is the torque at the shoulder greatest?",
+          "choices": ["Arm hanging straight down", "Arm halfway up", "Arm straight out horizontal", "Torque is the same throughout"],
+          "answer": 2,
+          "why": "The moment arm (horizontal distance from shoulder to weight) is longest when the arm is horizontal."
+        }
+      ]
+    },
+    {
+      "id": "a02-testing",
+      "domain": "Applied",
+      "chapter": "Ch 12 · Test selection and administration",
+      "title": "Choosing and ordering tests",
+      "sections": [
+        {
+          "heading": "What makes a good test",
+          "points": [
+            "Validity: it measures what it claims to measure. A vertical jump is a valid test of lower body power.",
+            "Reliability: it gives consistent results. Same athlete, same conditions, similar score.",
+            "A test can be reliable but not valid. It can't be valid if it isn't reliable."
+          ]
+        },
+        {
+          "heading": "Test order (the exam loves this)",
+          "points": [
+            "1. Non-fatiguing tests: height, weight, flexibility, skinfolds, vertical jump.",
+            "2. Agility tests (like the T-test or pro agility).",
+            "3. Max power and strength tests (like a 1RM).",
+            "4. Sprint tests.",
+            "5. Local muscular endurance (like push-ups).",
+            "6. Fatiguing anaerobic capacity tests (like a 300 yd shuttle).",
+            "7. Aerobic capacity tests (like a 1.5 mile run or Yo-Yo test)."
+          ]
+        },
+        {
+          "heading": "Keeping it fair",
+          "points": [
+            "Same warm-up, same instructions, same time of day, same surface each time.",
+            "Between attempts: at least 2 minutes when not near max, 3 minutes when near max. Between tests in a battery: at least 5 minutes.",
+            "Recovery after a max phosphagen test takes 3-5 minutes. After a max glycolytic test, at least 1 hour.",
+            "Account for heat, humidity, and altitude."
+          ]
+        }
+      ],
+      "coach": "Why it matters: this is the backbone of Project 1. A jump test is only useful for flagging fatigue if it's reliable, so you know a drop is real and not noise.",
+      "questions": [
+        {
+          "id": "a02-q1",
+          "q": "A test that gives consistent results across repeated trials is:",
+          "choices": ["Valid", "Reliable", "Objective", "Specific"],
+          "answer": 1,
+          "why": "Reliability = consistency. Validity = measuring the right thing."
+        },
+        {
+          "id": "a02-q2",
+          "q": "Which test should come FIRST in a testing session?",
+          "choices": ["1.5 mile run", "1RM back squat", "Vertical jump", "300 yd shuttle"],
+          "answer": 2,
+          "why": "Non-fatiguing tests like height, weight, and vertical jump go first."
+        },
+        {
+          "id": "a02-q3",
+          "q": "Which test should come LAST?",
+          "choices": ["Pro agility", "1.5 mile run", "40 yd sprint", "Push-ups to failure"],
+          "answer": 1,
+          "why": "Aerobic capacity tests are the last step in the recommended order."
+        },
+        {
+          "id": "a02-q4",
+          "q": "Correct order: 1RM bench, T-test, 300 yd shuttle, skinfolds",
+          "choices": ["Skinfolds, T-test, 1RM bench, 300 yd shuttle", "T-test, skinfolds, 300 yd shuttle, 1RM bench", "1RM bench, skinfolds, T-test, 300 yd shuttle", "Skinfolds, 1RM bench, 300 yd shuttle, T-test"],
+          "answer": 0,
+          "why": "Non-fatiguing → agility → max strength → fatiguing anaerobic."
+        },
+        {
+          "id": "a02-q5",
+          "q": "Which statement is true?",
+          "choices": ["A valid test must be reliable", "A reliable test must be valid", "Validity and reliability are the same thing", "Reliability only matters for aerobic tests"],
+          "answer": 0,
+          "why": "If results bounce around randomly, the test can't be measuring the right thing accurately."
+        }
+      ]
+    },
+    {
+      "id": "s05-hormones",
+      "domain": "Scientific",
+      "chapter": "Ch 4 · Endocrine responses",
+      "title": "Hormones and resistance training",
+      "sections": [
+        {
+          "heading": "Anabolic vs catabolic",
+          "points": [
+            "Anabolic hormones help build tissue: testosterone, growth hormone (GH), insulin-like growth factor (IGF-1), insulin.",
+            "Catabolic hormones break tissue down for energy: cortisol is the main one.",
+            "Hormones only work by binding to receptors on cells. More hormone matters less if receptors aren't interested."
+          ]
+        },
+        {
+          "heading": "What workouts spike them",
+          "points": [
+            "Testosterone rises acutely with big multi-joint lifts (deadlift, clean, squat), heavy loads (85-95% 1RM), moderate-high volume (multiple sets or exercises), short rest (30-60 s), and 2+ years of lifting experience.",
+            "GH rises most with high volume, moderate-heavy loads (like 10RM), and short rest (about 1 min). Higher lactate and lower pH are linked to bigger GH responses.",
+            "Cortisol also rises with high volume and short rest. Short term that's normal; chronically high cortisol can signal overtraining."
+          ]
+        },
+        {
+          "heading": "Sex and age differences",
+          "points": [
+            "Women have much lower testosterone than men but actually higher resting GH. Their androgen receptors also respond quickly to training.",
+            "Testosterone response to training is lower before puberty and tends to decline with age."
+          ]
+        }
+      ],
+      "coach": "Why it matters: high-volume, short-rest work is hormonally 'loud' but also stressful. That's why it needs to be balanced with recovery.",
+      "questions": [
+        {
+          "id": "s05-q1",
+          "q": "Which hormone is primarily catabolic?",
+          "choices": ["Testosterone", "Growth hormone", "Cortisol", "IGF-1"],
+          "answer": 2,
+          "why": "Cortisol breaks down tissue to free up energy. The others are anabolic."
+        },
+        {
+          "id": "s05-q2",
+          "q": "Which workout is MOST likely to produce a large acute growth hormone response?",
+          "choices": ["1 set of 3 reps at 90%, 5 min rest", "3 sets of 10RM, 1 min rest", "A 20 min easy jog", "Single max jumps with full rest"],
+          "answer": 1,
+          "why": "GH responds most to high volume, moderate-heavy loads, and short rest."
+        },
+        {
+          "id": "s05-q3",
+          "q": "Hormones affect cells by:",
+          "choices": ["Binding to receptors", "Replacing ATP", "Directly contracting fibers", "Raising body temperature"],
+          "answer": 0,
+          "why": "A hormone only acts on cells that have a receptor for it."
+        },
+        {
+          "id": "s05-q4",
+          "q": "Which factor tends to INCREASE the acute testosterone response to a workout?",
+          "choices": ["Small isolation exercises only", "Very light loads", "Large muscle mass exercises like squats", "Long rest with one set"],
+          "answer": 2,
+          "why": "Big multi-joint lifts with heavy loads and enough volume drive the largest testosterone responses."
+        },
+        {
+          "id": "s05-q5",
+          "q": "Chronically high cortisol in an athlete can be a sign of:",
+          "choices": ["Ideal recovery", "Overtraining or too much stress", "Increased strength", "Better hydration"],
+          "answer": 1,
+          "why": "Short spikes are normal, but staying elevated suggests the athlete isn't recovering."
+        }
+      ]
+    },
+    {
+      "id": "s06-nutrition",
+      "domain": "Scientific",
+      "chapter": "Ch 9 · Basic nutrition",
+      "title": "Macronutrients and calories",
+      "sections": [
+        {
+          "heading": "Calories per gram",
+          "points": [
+            "Carbohydrate: 4 kcal per gram.",
+            "Protein: 4 kcal per gram.",
+            "Fat: 9 kcal per gram.",
+            "Alcohol: 7 kcal per gram (not a nutrient, but shows up on the exam)."
+          ]
+        },
+        {
+          "heading": "Protein",
+          "points": [
+            "RDA for adults: 0.8 g per kg body weight per day. General fitness: about 0.8-1.0 g/kg.",
+            "Endurance athletes: about 1.0-1.6 g/kg. Strength athletes (and mixed strength + endurance/sprint athletes): about 1.4-1.7 g/kg.",
+            "Eating protein soon after training helps, since muscle is extra sensitive to amino acids after exercise.",
+            "Amino acids build tissue. Essential amino acids must come from food. Leucine is a key trigger for muscle protein synthesis."
+          ]
+        },
+        {
+          "heading": "Carbs and fat",
+          "points": [
+            "Carbs are the main fuel for moderate to high intensity exercise. They're stored as glycogen in muscle and liver.",
+            "Endurance and high-volume athletes need the most carbs. Needs go up with training volume.",
+            "Fat is the main fuel at rest and low intensity. Needed for hormones and absorbing vitamins A, D, E, K."
+          ]
+        }
+      ],
+      "coach": "Why it matters: when jump numbers dip across a heavy training block, under-fueling (especially low carbs) is one of the first things to ask about.",
+      "questions": [
+        {
+          "id": "s06-q1",
+          "q": "How many kcal are in 1 gram of fat?",
+          "choices": ["4", "7", "9", "12"],
+          "answer": 2,
+          "why": "Fat = 9, carbs and protein = 4, alcohol = 7."
+        },
+        {
+          "id": "s06-q2",
+          "q": "A 100 kg athlete eats 300 g of carbohydrate. How many kcal is that?",
+          "choices": ["300", "900", "1,200", "2,700"],
+          "answer": 2,
+          "why": "300 g × 4 kcal/g = 1,200 kcal."
+        },
+        {
+          "id": "s06-q3",
+          "q": "What is the general protein recommendation for the average (non-athlete) adult?",
+          "choices": ["0.3 g/kg", "0.8 g/kg", "2.0 g/kg", "3.5 g/kg"],
+          "answer": 1,
+          "why": "About 0.8 g/kg/day. Athletes generally need more."
+        },
+        {
+          "id": "s06-q4",
+          "q": "Which of these is fat-soluble?",
+          "choices": ["Vitamin C", "Vitamin B12", "Vitamin D", "Folate"],
+          "answer": 2,
+          "why": "A, D, E, and K are fat-soluble. B vitamins and C are water-soluble."
+        },
+        {
+          "id": "s06-q5",
+          "q": "Carbohydrate is stored in the body mainly as:",
+          "choices": ["Triglycerides", "Glycogen", "Creatine phosphate", "Amino acids"],
+          "answer": 1,
+          "why": "Glycogen in muscle and liver. Triglycerides are stored fat."
+        }
+      ]
+    },
+    {
+      "id": "a03-warmup",
+      "domain": "Applied",
+      "chapter": "Ch 14 · Warm-up and flexibility",
+      "title": "Warm-ups, stretching, and PNF",
+      "sections": [
+        {
+          "heading": "Warm-up structure",
+          "points": [
+            "General warm-up: about 5 minutes of slow aerobic activity (jog, skip, bike) to raise heart rate, blood flow, and muscle temperature.",
+            "Specific warm-up: movements similar to the sport, plus rehearsing the skill.",
+            "Whole warm-up: usually 10-20 minutes, ending no more than 15 minutes before the main activity.",
+            "RAMP: Raise (temperature and skill), Activate and Mobilize (dynamic movement patterns like squats and lunges), Potentiate (build intensity up to what the session needs)."
+          ]
+        },
+        {
+          "heading": "Static vs dynamic stretching",
+          "points": [
+            "Static stretch: slow, end position held 15-30 seconds. Doesn't trigger the stretch reflex, so low injury risk.",
+            "Static stretching before performance is debated. Holds over about 60 seconds are more likely to hurt power. Shorter holds (under ~45 s) have a smaller effect.",
+            "Dynamic stretching (walking knee lifts, lunges) moves through sport-like range under control. It's the preferred warm-up choice for most sports.",
+            "Ballistic stretching (bouncing) triggers the stretch reflex and needs care, especially after a past injury."
+          ]
+        },
+        {
+          "heading": "The reflexes and PNF",
+          "points": [
+            "Muscle spindles sense stretch and trigger the stretch reflex (the muscle contracts to resist a fast stretch).",
+            "Golgi tendon organs sense tension and cause the muscle to relax. That's autogenic inhibition.",
+            "Reciprocal inhibition: contracting one muscle (like the quads) relaxes its opposite (the hamstrings).",
+            "PNF stretching (usually with a partner) uses these. Three types: hold-relax, contract-relax, and hold-relax with agonist contraction.",
+            "Each starts with a 10 s passive prestretch. Hold-relax: 6 s isometric hold, then a 30 s passive stretch. Hold-relax with agonist contraction adds reciprocal inhibition on top of autogenic inhibition."
+          ]
+        }
+      ],
+      "coach": "Why it matters: a standard warm-up before jump testing keeps scores comparable day to day.",
+      "questions": [
+        {
+          "id": "a03-q1",
+          "q": "Which is best right before a speed and power session?",
+          "choices": ["Long static stretching", "Dynamic stretching", "Ballistic bouncing stretches", "No warm-up"],
+          "answer": 1,
+          "why": "Dynamic stretching keeps temperature up and rehearses sport movements. Long static holds (over ~60 s) are more likely to reduce power."
+        },
+        {
+          "id": "a03-q2",
+          "q": "The Golgi tendon organ causes the muscle to relax when tension is high. This is called:",
+          "choices": ["Reciprocal inhibition", "Stretch reflex", "Autogenic inhibition", "Rate coding"],
+          "answer": 2,
+          "why": "Autogenic = the muscle inhibits itself through its own GTO."
+        },
+        {
+          "id": "a03-q3",
+          "q": "Contracting the quads to help the hamstrings relax is an example of:",
+          "choices": ["Autogenic inhibition", "Reciprocal inhibition", "The size principle", "Static stretching"],
+          "answer": 1,
+          "why": "Contracting the agonist relaxes the antagonist."
+        },
+        {
+          "id": "a03-q4",
+          "q": "Which structure detects stretch and triggers the stretch reflex?",
+          "choices": ["Golgi tendon organ", "Muscle spindle", "Sarcomere", "Motor end plate"],
+          "answer": 1,
+          "why": "Muscle spindles sense changes in length and speed of stretch."
+        },
+        {
+          "id": "a03-q5",
+          "q": "A good general warm-up lasts about:",
+          "choices": ["30 seconds", "5 minutes", "30 minutes", "45 minutes"],
+          "answer": 1,
+          "why": "About 5 minutes of light activity, then a sport-specific dynamic section."
+        }
+      ]
+    },
+    {
+      "id": "s07-anaerobic-adapt",
+      "domain": "Scientific",
+      "chapter": "Ch 5 · Anaerobic training adaptations",
+      "title": "How the body adapts to lifting and sprinting",
+      "sections": [
+        {
+          "heading": "Neural first",
+          "points": [
+            "In the first several weeks of training, strength goes up faster than muscle size. That early gain is mostly neural.",
+            "Neural changes: more motor units recruited, faster firing, better timing between muscles, and less co-contraction from the opposing muscle."
+          ]
+        },
+        {
+          "heading": "Then muscle",
+          "points": [
+            "Hypertrophy (bigger fibers) takes longer: usually more than 16 workouts before muscle size changes clearly show up.",
+            "Fibers grow mainly by adding more myofibrils (more actin and myosin), especially Type II fibers.",
+            "Fiber type shift: training moves Type IIx fibers toward Type IIa. Fully switching Type II to Type I (or back) is not well supported."
+          ]
+        },
+        {
+          "heading": "Other adaptations",
+          "points": [
+            "Bone gets denser in response to loading. Bone adapts slower than muscle, often 6 months or more.",
+            "Tendons and ligaments get stiffer and stronger.",
+            "Overreaching (short-term performance dip that recovers) is fine. Overtraining (long-term decline) is the problem."
+          ]
+        }
+      ],
+      "coach": "Why it matters: a freshman's fast strength jump in month one is mostly their nervous system learning, so don't expect size changes to match.",
+      "questions": [
+        {
+          "id": "s07-q1",
+          "q": "Strength gains in the first few weeks of a new program are mainly due to:",
+          "choices": ["Hypertrophy", "Neural adaptations", "New muscle fibers forming", "Bone density increases"],
+          "answer": 1,
+          "why": "Early strength comes mostly from the nervous system getting better at using muscle."
+        },
+        {
+          "id": "s07-q2",
+          "q": "Resistance training typically shifts muscle fibers from:",
+          "choices": ["Type I to Type IIx", "Type IIx to Type IIa", "Type IIa to Type I", "Type I to Type IIa"],
+          "answer": 1,
+          "why": "IIx fibers take on more IIa traits with training."
+        },
+        {
+          "id": "s07-q3",
+          "q": "Muscle fiber hypertrophy mainly happens by:",
+          "choices": ["Adding myofibrils (more contractile proteins)", "Splitting into new fibers", "Storing more fat", "Converting tendon to muscle"],
+          "answer": 0,
+          "why": "More actin and myosin are added, so each fiber gets bigger."
+        },
+        {
+          "id": "s07-q4",
+          "q": "A short-term drop in performance that recovers after a few days of rest is called:",
+          "choices": ["Overtraining syndrome", "Detraining", "Overreaching", "Atrophy"],
+          "answer": 2,
+          "why": "Overreaching is short-term and can be planned. Overtraining lasts weeks to months."
+        },
+        {
+          "id": "s07-q5",
+          "q": "Compared with muscle, bone adapts to training:",
+          "choices": ["Faster", "At the same speed", "Slower", "Not at all"],
+          "answer": 2,
+          "why": "Bone remodeling is slow, often taking 6 months or more to show changes."
+        }
+      ]
+    }
+  ]
+}
