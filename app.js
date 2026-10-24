@@ -36,6 +36,7 @@ function defaultData() {
       outreachEarly: false, // unlock outreach before Project 1 is done
       jobsEnabled: false,   // show the jobs applied tracker in People
     },
+    reminders: { on: false, time: '18:00', id: null }, // daily push reminder
     badges: {},    // badgeId -> date earned
     lastBackup: null,   // date of the last backup export
     welcomeDone: false, // dismissed the first-run card
@@ -88,6 +89,19 @@ function save() {
   } catch (e) {
     toast('⚠️ Could not save');
   }
+  saveStatusForReminders();
+}
+
+// The service worker can't read localStorage, so leave it a tiny note about today
+// for the reminder text ("2 tasks left today. 🔥 5-day streak on the line.")
+function saveStatusForReminders() {
+  if (!('caches' in window)) return;
+  const day = data.days[dateKey()];
+  const left = day ? day.tasks.filter(t => !t.bonus && !t.done).length : null;
+  const status = { date: dateKey(), left, streak: data.streak.current };
+  caches.open('jq-status')
+    .then(c => c.put('status', new Response(JSON.stringify(status), { headers: { 'Content-Type': 'application/json' } })))
+    .catch(() => {});
 }
 
 let data = load();
@@ -171,6 +185,7 @@ function updateDayComplete(day) {
     data.streak.lastCompleteDate = key;
     data.streak.best = Math.max(data.streak.best, data.streak.current);
     addPoints(DAY_BONUS);
+    reminderApi('/done', { date: key }).catch(() => {}); // no reminder needed today
     celebrate();
     toast(`🎉 Day done! +${DAY_BONUS} bonus`);
   } else if (!allDone && day.complete) {
@@ -438,6 +453,9 @@ function renderMe() {
       <p class="note">One Excel file with tabs for outreach, rec letters, jobs, study log, project hours, check-ins, and a task log. Save it to OneDrive and share the link with your mom or advisor. It's a snapshot, so export again for an update.</p>
     </div>
 
+    <h2>Daily reminder</h2>
+    <div class="card">${renderReminderSettings()}</div>
+
     <h2>Settings</h2>
     <div class="card">
       <label class="setting toggle">
@@ -460,6 +478,7 @@ function renderMe() {
     </div>
   `;
 
+  bindReminderSettings();
   document.getElementById('checkinBtn').addEventListener('click', startCheckin);
   document.getElementById('xlsxBtn').addEventListener('click', exportSpreadsheet);
   document.getElementById('jobsToggle').addEventListener('change', e => {
@@ -2326,6 +2345,141 @@ async function exportSpreadsheet() {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+// ---------- daily reminder (push notifications) ----------
+// The reminder server lives on Cloudflare (see the reminders/ folder on the laptop).
+const REMINDER_API = 'https://job-quest-reminders.colinfoil2022.workers.dev';
+const VAPID_PUBLIC_KEY = 'BK7nLVRU7dfSs3rY85QwTBha_gEUAH820aq_DZU1FXxIBoq3kD7MLxWdahUsVI96WGCd1MqyCUs-8WWAaooQVI0';
+
+function isInstalled() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+function pushSupported() {
+  return 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+}
+
+function b64uToBytes(s) {
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  return Uint8Array.from(atob(s), c => c.charCodeAt(0));
+}
+
+async function reminderApi(path, body) {
+  if (!REMINDER_API || !data.reminders.on || !data.reminders.id) return null;
+  const res = await fetch(REMINDER_API + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: data.reminders.id, ...body }),
+  });
+  return res.json();
+}
+
+async function sendSubscription(sub) {
+  const res = await fetch(REMINDER_API + '/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      id: data.reminders.id,
+      subscription: sub.toJSON(),
+      time: data.reminders.time,
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    }),
+  });
+  if (!res.ok) throw new Error('server said ' + res.status);
+}
+
+async function enableReminders() {
+  try {
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') return toast('Notifications are blocked. Turn them on in iPhone Settings → Job Quest.');
+    const reg = await navigator.serviceWorker.ready;
+    const sub = (await reg.pushManager.getSubscription()) ||
+      await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64uToBytes(VAPID_PUBLIC_KEY) });
+    if (!data.reminders.id) data.reminders.id = crypto.randomUUID();
+    await sendSubscription(sub);
+    data.reminders.on = true;
+    save();
+    render();
+    await reminderApi('/test', {});
+    toast('🔔 Reminders on. Test notification sent.');
+  } catch (e) {
+    console.warn(e);
+    data.reminders.on = false;
+    render();
+    toast("⚠️ Couldn't turn on reminders. Check your internet and try again.");
+  }
+}
+
+async function disableReminders() {
+  try {
+    await reminderApi('/unsubscribe', {});
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.getSubscription();
+    if (sub) await sub.unsubscribe();
+  } catch (e) {
+    console.warn(e);
+  }
+  data.reminders.on = false;
+  save();
+  render();
+  toast('Reminders off');
+}
+
+async function changeReminderTime(time) {
+  data.reminders.time = time;
+  save();
+  if (!data.reminders.on) return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.getSubscription();
+    if (!sub) throw new Error('no subscription');
+    await sendSubscription(sub);
+    toast(`Reminder moved to ${fmtTime(time)}`);
+  } catch (e) {
+    toast("⚠️ Couldn't update the time. Try again with internet.");
+  }
+}
+
+function fmtTime(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+}
+
+function renderReminderSettings() {
+  if (!REMINDER_API) return `<p class="note" style="margin:0">Coming soon.</p>`;
+  if (!pushSupported() || !isInstalled()) {
+    return `<b>Open Job Quest from your home screen</b>
+      <p class="note">iPhone only allows reminders for apps added to the home screen (iOS 16.4 or newer).</p>`;
+  }
+  const on = data.reminders.on && Notification.permission === 'granted';
+  return `
+    <label class="setting toggle">
+      <span><b>Remind me every day</b><span class="note" style="display:block;margin:2px 0 0">Skipped on days you've already finished</span></span>
+      <input type="checkbox" id="remindToggle" ${on ? 'checked' : ''}>
+    </label>
+    <div class="setting" style="margin:12px 0 0">
+      <label for="remindTime">Time</label>
+      <input type="time" id="remindTime" value="${data.reminders.time}" style="flex:none">
+    </div>
+    ${on ? '<button class="link" id="remindTest">Send a test notification</button>' : ''}`;
+}
+
+function bindReminderSettings() {
+  const toggle = document.getElementById('remindToggle');
+  if (toggle) toggle.addEventListener('change', e => (e.target.checked ? enableReminders() : disableReminders()));
+  const time = document.getElementById('remindTime');
+  if (time) time.addEventListener('change', e => { if (e.target.value) changeReminderTime(e.target.value); });
+  const test = document.getElementById('remindTest');
+  if (test) test.addEventListener('click', async () => {
+    try {
+      const r = await reminderApi('/test', {});
+      toast(r && r.ok ? '🔔 Test sent' : "⚠️ Test didn't go through");
+    } catch (e) {
+      toast('⚠️ No internet?');
+    }
+  });
 }
 
 // ---------- badges ----------
